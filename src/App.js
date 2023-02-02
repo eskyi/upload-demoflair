@@ -9,7 +9,7 @@ const App = () => {
 
   const uploadHandler = (e) => {
     // Start the upload. Use storageService and use axios put to send PUT request to
-    // storageWorker.js which is hosted at storage.demoflair.com.au to help GET and PUT files
+    // storageWorker.js which is hosted at storage.demoflair.com.au to help GET and PUT files. No Id needed
     // Check file size before uploading
     storageService.create(file);
     // Capture error and send error message to message, 429, other errors?
