@@ -29,15 +29,14 @@ const App = () => {
           }
         },
       })
-      .then((res) => {
+      .then((response) => {
         setMessage("");
-        setLink(res.data);
+        setLink(response.data);
       })
       .catch((error) => {
         setSuccess(false);
         showButton(true);
         console.log(error);
-        // Fix this console error, why can't I get the 429 status code out of the error?
         if (error.message === "Network Error") {
           setMessage("Sorry, please try again later.");
         } else {
