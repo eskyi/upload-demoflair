@@ -35,6 +35,7 @@ const App = () => {
       })
       .catch((error) => {
         setSuccess(false);
+        setProgress("");
         showButton(true);
         console.log(error);
         if (error.message === "Network Error") {
