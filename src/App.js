@@ -10,7 +10,7 @@ const App = () => {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
-  const baseUrl = "http://127.0.0.1:8787/";
+  const baseUrl = "api/";
 
   const uploadFile = (file, updateProgress) => {
     return axios
