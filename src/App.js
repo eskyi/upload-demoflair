@@ -10,7 +10,7 @@ const App = () => {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
 
-  const baseUrl = "http://storage.demoflair.com.au/";
+  const baseUrl = "https://storage.demoflair.com.au/";
 
   const uploadFile = (file, updateProgress) => {
     return axios
