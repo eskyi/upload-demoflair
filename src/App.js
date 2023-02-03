@@ -37,10 +37,8 @@ const App = () => {
         setSuccess(false);
         showButton(true);
         console.log(error);
-        if (error.response) {
-          if (error.response.status === 429) {
-            setMessage("Sorry, you are sending too many files. Slow down.");
-          }
+        if (error.message === "Network Error") {
+          setMessage("Sorry, you are sending too many files. Slow down.");
         } else {
           setMessage(error.message);
         }
