@@ -74,7 +74,7 @@ const App = () => {
       <p>Max 4.95GB, 7 Day Retention</p>
       <form onSubmit={uploadHandler}>
         <input type="file" id="file" onChange={fileHandler} name="file"></input>
-        {!success && <h3 id="status">{progress}</h3>}
+        {!success && <p id="status">{progress}</p>}
         {button && !success && (
           <button onClick={uploadHandler} name="getalink" className="btn">
             Get a link
