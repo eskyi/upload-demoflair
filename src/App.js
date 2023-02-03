@@ -37,8 +37,9 @@ const App = () => {
         setSuccess(false);
         showButton(true);
         console.log(error);
+        // Fix this console error, why can't I get the 429 status code out of the error?
         if (error.message === "Network Error") {
-          setMessage("Sorry, you are sending too many files. Slow down.");
+          setMessage("Sorry, please try again later.");
         } else {
           setMessage(error.message);
         }
