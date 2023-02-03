@@ -79,9 +79,7 @@ const App = () => {
         <input type="file" id="file" onChange={fileHandler} name="file"></input>
         {!success && <p id="status">{progress}</p>}
         {button && !success && (
-          <button onClick={uploadHandler} name="getalink" className="btn">
-            Get a link
-          </button>
+          <button onClick={uploadHandler}>Get a link</button>
         )}
       </form>
       <p>{message}</p>
