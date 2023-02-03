@@ -48,6 +48,7 @@ const App = () => {
 
   const uploadHandler = (e) => {
     const MAX_FILE_SIZE = 4950000;
+    setProgress("");
     let fileSizeKiloBytes = file.size / 1024; // File Size in KB
     e.preventDefault();
     if (file.length === 0) {
