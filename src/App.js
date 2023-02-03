@@ -1,36 +1,90 @@
 import "./App.css";
 import { useState } from "react";
-import storageService from "./services/storage";
+import axios from "axios";
 
 const App = () => {
-  const [message, setMessage] = useState("");
+  const [link, setLink] = useState("");
   const [button, showButton] = useState(true);
   const [file, setFile] = useState([]);
+  const [progress, setProgress] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [message, setMessage] = useState("");
+
+  const baseUrl = "http://127.0.0.1:8787/";
+
+  const uploadFile = (file, updateProgress) => {
+    return axios
+      .post(baseUrl + encodeURIComponent(file.name), file, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          let percent = Math.floor(
+            (progressEvent.loaded * 100) / progressEvent.total
+          );
+          updateProgress(percent + "%");
+          if (percent === 100) {
+            setSuccess(true);
+            setMessage("Please wait...");
+          }
+        },
+      })
+      .then((res) => {
+        setMessage("");
+        setLink(res.data);
+      })
+      .catch((error) => {
+        setSuccess(false);
+        showButton(true);
+        console.log(error);
+        if (error.response) {
+          if (error.response.status === 429) {
+            setMessage("Sorry, you are sending too many files. Slow down.");
+          }
+        } else {
+          setMessage(error.message);
+        }
+      });
+  };
 
   const uploadHandler = (e) => {
-    // Start the upload. Use storageService and use axios put to send PUT request to
-    // storageWorker.js which is hosted at storage.demoflair.com.au to help GET and PUT files. No Id needed
-    // Check file size before uploading
-    storageService.create(file);
-    // Capture error and send error message to message, 429, other errors?
+    const MAX_FILE_SIZE = 4950000;
+    let fileSizeKiloBytes = file.size / 1024; // File Size in KB
+    e.preventDefault();
+    if (file.length === 0) {
+      setMessage("Please select a file.");
+    } else if (fileSizeKiloBytes > MAX_FILE_SIZE) {
+      setMessage("Sorry, your file must be less than 4.95GB");
+    } else {
+      uploadFile(file, setProgress);
+      showButton(false);
+    }
   };
 
   const fileHandler = (e) => {
-    setFile(e.value);
+    setFile(e.target.files[0]);
+    showButton(true);
+    setSuccess(false);
+    setProgress("");
+    setMessage("");
+    setLink("");
   };
 
   return (
     <>
       <h2>Upload a file</h2>
       <p>Max 4.95GB, 7 Day Retention</p>
-      <input type="file" id="file" onChange={fileHandler} name="file"></input>
-      <h3 id="status"></h3>
-      {button && (
-        <button onClick={uploadHandler} name="submit" className="btn">
-          Get a link
-        </button>
-      )}
+      <form onSubmit={uploadHandler}>
+        <input type="file" id="file" onChange={fileHandler} name="file"></input>
+        {!success && <h3 id="status">{progress}</h3>}
+        {button && !success && (
+          <button onClick={uploadHandler} name="getalink" className="btn">
+            Get a link
+          </button>
+        )}
+      </form>
       <p>{message}</p>
+      <p>{success && <a href={link}>{link}</a>}</p>
     </>
   );
 };
