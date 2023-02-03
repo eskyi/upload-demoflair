@@ -56,6 +56,7 @@ const App = () => {
     } else {
       uploadFile(file, setProgress);
       showButton(false);
+      setMessage("");
     }
   };
 
