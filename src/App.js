@@ -82,8 +82,12 @@ const App = () => {
           <button onClick={uploadHandler}>Get a link</button>
         )}
       </form>
-      <p>{message}</p>
-      <p>{success && <a href={link}>{link}</a>}</p>
+      {message && <p>{message}</p>}
+      {success && (
+        <p>
+          <a href={link}>{link}</a>
+        </p>
+      )}
     </>
   );
 };
