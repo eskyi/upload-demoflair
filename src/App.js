@@ -2,7 +2,6 @@ import "./App.css";
 import { useState } from "react";
 import axios from "axios";
 import { Turnstile } from "@marsidev/react-turnstile";
-import Cookies from "js-cookie";
 
 const App = () => {
   const [link, setLink] = useState("");
@@ -11,13 +10,12 @@ const App = () => {
   const [progress, setProgress] = useState("");
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
+  const [token, setToken] = useState("");
 
   const baseUrl = "https://storage.demoflair.com/";
   // const baseUrl = "http://localhost:8787/";
 
   const uploadFile = (file, updateProgress) => {
-    const token = Cookies.get("cf_clearance");
-    console.log(token);
     return axios
       .post(baseUrl + encodeURIComponent(file.name), file, {
         headers: {
@@ -94,7 +92,7 @@ const App = () => {
           <a href={link}>{link}</a>
         </p>
       )}
-      <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" />
+      <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" onSuccess={setToken} />
     </>
   );
 };
