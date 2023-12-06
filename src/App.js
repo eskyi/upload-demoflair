@@ -80,7 +80,6 @@ const App = () => {
       <form onSubmit={uploadHandler}>
         <input type="file" id="file" onChange={fileHandler} name="file"></input>
         {!success && <p id="status">{progress}</p>}
-        <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" />
         {button && !success && (
           <button onClick={uploadHandler}>Get a link</button>
         )}
@@ -91,6 +90,7 @@ const App = () => {
           <a href={link}>{link}</a>
         </p>
       )}
+      <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" />
     </>
   );
 };
