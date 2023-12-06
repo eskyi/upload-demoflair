@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import axios from "axios";
 import { Turnstile } from "@marsidev/react-turnstile";
+import Cookies from "js-cookie";
 
 const App = () => {
   const [link, setLink] = useState("");
@@ -19,6 +20,7 @@ const App = () => {
       .post(baseUrl + encodeURIComponent(file.name), file, {
         headers: {
           "Content-Type": "multipart/form-data",
+          "cf-clearance": Cookies.get("cf-clearance"),
         },
         onUploadProgress: (progressEvent) => {
           let percent = Math.floor(
