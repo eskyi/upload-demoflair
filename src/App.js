@@ -17,6 +17,7 @@ const App = () => {
 
   const uploadFile = (file, updateProgress) => {
     const token = Cookies.get("cf_clearance");
+    console.log(token);
     return axios
       .post(baseUrl + encodeURIComponent(file.name), file, {
         headers: {
