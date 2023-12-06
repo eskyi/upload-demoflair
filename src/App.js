@@ -1,7 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import axios from "axios";
-import { Turnstile } from "@marsidev/react-turnstile";
+import { Turnstile } from "react-turnstile";
 
 const App = () => {
   const [link, setLink] = useState("");
