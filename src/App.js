@@ -76,11 +76,11 @@ const App = () => {
   return (
     <>
       <h2>Upload a file</h2>
-      <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" />
       <p>Max 4.95GB, 7 Day Retention</p>
       <form onSubmit={uploadHandler}>
         <input type="file" id="file" onChange={fileHandler} name="file"></input>
         {!success && <p id="status">{progress}</p>}
+        <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" />
         {button && !success && (
           <button onClick={uploadHandler}>Get a link</button>
         )}
