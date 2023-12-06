@@ -16,11 +16,12 @@ const App = () => {
   // const baseUrl = "http://localhost:8787/";
 
   const uploadFile = (file, updateProgress) => {
+    const token = Cookies.get("cf_clearance");
     return axios
       .post(baseUrl + encodeURIComponent(file.name), file, {
         headers: {
           "Content-Type": "multipart/form-data",
-          cf_clearance: Cookies.get("cf_clearance"),
+          "cf-clearance": token,
         },
         onUploadProgress: (progressEvent) => {
           let percent = Math.floor(
