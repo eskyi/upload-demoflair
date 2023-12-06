@@ -2,6 +2,7 @@ import "./App.css";
 import { useState } from "react";
 import axios from "axios";
 import { Turnstile } from "@marsidev/react-turnstile";
+import { useRef } from "react";
 
 const App = () => {
   const [link, setLink] = useState("");
@@ -11,6 +12,7 @@ const App = () => {
   const [success, setSuccess] = useState(false);
   const [message, setMessage] = useState("");
   const [token, setToken] = useState("");
+  const ref = useRef();
 
   const baseUrl = "https://storage.demoflair.com/";
   // const baseUrl = "http://localhost:8787/";
@@ -68,6 +70,7 @@ const App = () => {
 
   const fileHandler = (e) => {
     setFile(e.target.files[0]);
+    ref.current?.reset();
     showButton(true);
     setSuccess(false);
     setProgress("");
@@ -92,7 +95,11 @@ const App = () => {
           <a href={link}>{link}</a>
         </p>
       )}
-      <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" onSuccess={setToken} />
+      <Turnstile
+        ref={ref}
+        siteKey="0x4AAAAAAAOKpy7nQuuYlF8T"
+        onSuccess={setToken}
+      />
     </>
   );
 };
