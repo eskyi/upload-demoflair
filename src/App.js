@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import axios from "axios";
+import { Turnstile } from "@marsidev/react-turnstile";
 
 const App = () => {
   const [link, setLink] = useState("");
@@ -11,6 +12,7 @@ const App = () => {
   const [message, setMessage] = useState("");
 
   const baseUrl = "https://storage.demoflair.com/";
+  // const baseUrl = "http://localhost:8787/";
 
   const uploadFile = (file, updateProgress) => {
     return axios
@@ -74,6 +76,7 @@ const App = () => {
   return (
     <>
       <h2>Upload a file</h2>
+      <Turnstile siteKey="0x4AAAAAAAOKpy7nQuuYlF8T" />
       <p>Max 4.95GB, 7 Day Retention</p>
       <form onSubmit={uploadHandler}>
         <input type="file" id="file" onChange={fileHandler} name="file"></input>
