@@ -22,7 +22,7 @@ const App = () => {
       .post(baseUrl + encodeURIComponent(file.name), file, {
         headers: {
           "Content-Type": "multipart/form-data",
-          cf_clearance: token,
+          "cf-clearance": token,
         },
         onUploadProgress: (progressEvent) => {
           let percent = Math.floor(
